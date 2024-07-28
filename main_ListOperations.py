@@ -1,4 +1,16 @@
-from random import choices, randint
+"""1. (a) Develop a module called module_ListFunction that includes the following functions:
+i. A function to find the maximum value in a given list.
+ii. A function to find the minimum value in a given list.
+iii. A function to calculate the sum of all elements in a list.
+iv. A function to compute the average of the list.
+v. A function to determine the median of a list.
+Additionally, create lists using Python comprehension for various scenarios and demonstrate
+the use of the module functions with these lists.
+(b) Create another script named 'main_ListOpeartions.py' and Imports the
+'module_ListFunction' to it.
+(c) Demonstrate the execution of each function with suitable examples."""
+
+from random import choices
 
 from module_ListFunction import *
 
