@@ -230,6 +230,15 @@ books = {
 
 
 def add_book(book: dict[str, dict[str, Any]]):
+    """Add a book to the library
+
+    Args:
+        book (dict[str, dict[str, Any]]): The book to be added
+
+    Returns:
+        bool: True if the book got added, else False
+    """
+
     isbn = [key for key in book.keys()][0]
     if isbn in books:
         return False
@@ -238,6 +247,15 @@ def add_book(book: dict[str, dict[str, Any]]):
 
 
 def remove_book(isbn_code: str):
+    """Remove a book from the library
+
+    Args:
+        isbn_code (str): The book to be removed
+
+    Returns:
+        bool: True if the book got removed, else False
+    """
+
     if isbn_code in books:
         books.pop(isbn_code)
         return True
@@ -245,11 +263,33 @@ def remove_book(isbn_code: str):
 
 
 def retrieve_book(isbn_code: str):
+    """Retrieve a book from the library
+
+    Args:
+        isbn_code (str): The book to be retrieved
+
+    Returns:
+        dict[str, Any] | None: The book if it is available, else None
+    """
+
     if isbn_code in books:
         return books[isbn_code]
 
 
-def search_book(title: str = "", author: str = ""):
+def search_book(*, title: str = "", author: str = ""):
+    """Search for a book with either title or author name
+
+    Args:
+        title (str, optional): The title name. Defaults to "".
+        author (str, optional): The author name. Defaults to "".
+
+    Raises:
+        ValueError: If no value is given
+
+    Returns:
+        list: The books that match the criteria
+    """
+    
     if title == "" and author == "":
         raise ValueError("At least one argument must be given")
     result = []
@@ -265,6 +305,12 @@ def search_book(title: str = "", author: str = ""):
 
 
 def list_available_books():
+    """List all available books that can be taken from the library
+
+    Returns:
+        dict: The books that can be withdrawn
+    """
+    
     available_books = {}
     for book, data in books.items():
         if data["stock"] > 0:
@@ -273,6 +319,12 @@ def list_available_books():
 
 
 def list_all_books():
+    """List of all books in the library
+
+    Returns:
+        dict: All the books in the library
+    """
+    
     all_books = {}
     for book, data in books.items():
         all_books.update({book: data["title"]})
@@ -280,6 +332,17 @@ def list_all_books():
 
 
 def update_book(isbn_code: str, **kwargs):
+    """Update a book if isbn code is found in the library
+
+    Args:
+        isbn_code (str): The code for the book
+
+    Raises:
+        ValueError: If an invalid key is given
+
+    Returns:
+        bool: True if the book got edited, else False
+    """
     if isbn_code in books:
         for key, value in kwargs.items():
             if key in books[isbn_code]:
@@ -291,8 +354,17 @@ def update_book(isbn_code: str, **kwargs):
 
 
 def check_availability(isbn_code: str):
+    """Check if a book is in stock
+
+    Args:
+        isbn_code (str): The isbn code of the book
+
+    Returns:
+        bool: True if in stock, else False
+    """
+    
     if isbn_code not in books:
-        return 0
+        return False
     return books[isbn_code]["stock"] > 0
 
 
